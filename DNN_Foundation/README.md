@@ -1,0 +1,7 @@
+# Foundational Ideas used in ML written in TF1(for learning purpose)
+
+| Name of the project | Description | Used Libraries | 
+| :---------------------- | :---------------------- | :---------------------- |
+| [Batch Normalization Implementation](Batch_Norm_Impl_TF1) | The following folder contains script for solving facial expression recognition task with Fully Connected Neural Network written in TF1 code. This approach allowed for better comprehension of the inner workings of Batch Normalization. | *numpy*, *pandas*, *tensorflow.compat.v1*, *matplotlib*, *sklearn*. |
+| [Facial Expression Recognition](FER_TF1) | This folder contains two ways of approaching problem of Facial Expression Recognition: using ordinary ANN and CNN. Both ways are written using TF1 code with custom training loop. | *numpy*, *pandas*, *tensorflow.compat.v1*, *matplotlib*, *sklearn*, *keras*. |
+| [The way how model learns](Learning_Algorithms) | The main purpose of the scripts in this folder is to show how most popular algorithms of ML works. Here we are writing from scratch the backpropagation itself, Gradient Descend, Momentum, RMSprop and Adam. Again with TF1 and numpy. | *numpy*, *pandas*, *tensorflow.compat.v1*, *matplotlib*, *sklearn*, *keras*. |

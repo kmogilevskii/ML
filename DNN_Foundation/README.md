@@ -1,4 +1,4 @@
-# Foundational Ideas used in ML written in TF1(for learning purpose)
+# Foundational Concepts used in ML written in TF1(for learning purpose)
 
 | Name of the project | Description | Used Libraries | 
 | :---------------------- | :---------------------- | :---------------------- |

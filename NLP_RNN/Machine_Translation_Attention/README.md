@@ -1,0 +1,6 @@
+![star_schema](./images/Part1.png)
+![star_schema](./images/Part2.png)
+![star_schema](./images/Part3.png)
+![star_schema](./images/Part4.png)
+![star_schema](./images/Part5.png)
+![star_schema](./images/Part6.png)

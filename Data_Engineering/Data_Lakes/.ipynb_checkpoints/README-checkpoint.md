@@ -1,4 +1,4 @@
-# Cloud DWH
+# Data Lake project
 
 ## Question:
 
@@ -20,21 +20,21 @@ State and justify your database schema design and ETL pipeline.
 
 The choice of the **Star Schema** can be explained by the fact that we need the *OLAP* database for complex analytical and ad-hoc quieries. This denormalized approach improves the read performance as we won't need to perform so much JOIN operations, which are slow. Of course this all comes at the expense of *Data Integrity*.
 
-ETL pipeline is pretty straightforward: after impersonating our Redshift Cluster, created via Python SDK (boto3), by IAM role with ReadOnlyAccess we were able to point it to S3 bucket. From there we've copied our log and song data from there into the staging area (staging_events and staging_songs) using COPY command. After that we run multiple INSERT commands on 5 tables that represent our star schema. Most of them are pretty simple and only `songplays` table required JOIN of both our staging tables.
+## File explanation
+
+In our main script called etl.py we at first parsing our config file containing key access pair to set our 
+environmental variable. After we define three functions. 
+
+The first one `create_spark_session` is the simples, which creates spark session and returns it. 
+
+The second `process_song_data` loads all the json files from song_data folder, that resides in the S3 bucket, which are partitioned by first three letters in the name of the file (that's why we use star notation). Eventually this way we stacking the content of these files into a single dataframe, create `artists` and `songs` dataframes from it and saving them into parquet file for storing in a highly commpressed way.
+
+The last one is `process_log_data`, which does the similar thing comparing to the second function. It loads log data from another folder that as well stores json files partitioned by year and month. Extracts needed information to create user table and time table. For hte last one we use useer defined functions in Spark. Here we again loads all the data from the song_data folder to join this data with log data to get the main songplays_table.
+
 
 ## How to run python scripts:
 
-Before running the `etl.py` file we should always run `create_tables.py` script, which drops all the tables from our Redshift Cluster and creates the necessary tables based on the list of queries in the `sql_queries.py` file. 
-
-## File explanations:
-
-`sql_queries.py` contains queries for dropping and creating from scratch fact table *songplays* and dimensional tables: *users, songs, artists, time*. Also it contains COPY commands, that copy all our log and song data from S3 bucket to staging area tables inside of our Redshift Cluster.
-
-`create_tables.py` connects to our Redshift Cluster and resets all our tables. We should always run it before `etl.py`.
-
-`etl.py` uses COPY and INSERT queries to upload our data from S3 bucket to staging area and then into the dimensional model, that can be later used for analytical queries.
-
-`Cluster_Creation.ipynb` contains code for creating Redshift Cluster and impersonating it with IAM role and also deleting them.
+`etl.py` can be run simply in the project workspace. But before running it we should make sure, that all the folder with parquet files are deleted. It also can be run on EMR cluster, but in this case there is no need to store key access pairs. The same goes if we want to run in in the jupyter notebook attached to our cluster.
 
 
 ## Database Schema
